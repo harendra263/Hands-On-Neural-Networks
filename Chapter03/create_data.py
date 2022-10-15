@@ -49,14 +49,15 @@ output_folders = data_input['Usage'].unique().tolist()
 all_folders = []
 
 for folder in output_folders:
-    for label in label_map:
-        all_folders.append(os.path.join(basedir, folder, label_map[label]))
+    all_folders.extend(
+        os.path.join(basedir, folder, label_map[label]) for label in label_map
+    )
 
 for folder in all_folders:
     if not os.path.exists(folder):
         os.makedirs(folder)
     else:
-        print('Folder {} exists already'.format(folder))
+        print(f'Folder {folder} exists already')
 
 counter_error = 0
 counter_correct = 0

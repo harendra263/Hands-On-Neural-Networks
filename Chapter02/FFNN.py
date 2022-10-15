@@ -75,8 +75,7 @@ class FFNN(object):
         self.z1 = np.dot(X, self.w1)  # dot product of X (input) and first set of 3x2 weights
         self.z2 = sigmoid(self.z1)  # activation function
         self.z3 = np.dot(self.z2, self.w2)  # dot product of hidden layer (z2) and second set of 3x1 weights
-        o = sigmoid(self.z3)  # final activation function
-        return o
+        return sigmoid(self.z3)
 
     def backward(self, X, y, output, step):
         # Backward propagation of the errors
@@ -95,7 +94,7 @@ class FFNN(object):
         return forward(self, X)
 
     def fit(self, X, y, epochs=10, step=0.05):
-        for epoch in range(epochs):
+        for _ in range(epochs):
             X['bias'] = 1  # Adding 1 to the inputs to include the bias in the weight
             output = self.forward(X)
             self.backward(X, y, output, step)
